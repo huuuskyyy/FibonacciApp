@@ -41,11 +41,11 @@ namespace FibonacciMultiplicationTableConsoleAppTests
 
             List<List<double>> fibonacciMultiplicationTableExpected = new List<List<double>>()
             { new List<double>(){1,1,2,3,5},
-            new List<double>(){1,1,1,1,1,1},
-            new List<double>(){1,2,2,3,4,6},
-            new List<double>(){2,3,3,4,5,7},
-            new List<double>(){3,5,5,7,9,13},
-            new List<double>(){5,8,8,11,14,20} };
+            new List<double>(){1,1,1,2,3,5},
+            new List<double>(){1,1,1,2,3,5},
+            new List<double>(){2,2,2,4,6,10},
+            new List<double>(){3,3,3,6,9,15},
+            new List<double>(){5,5,5,10,15,25}};
 
             for (int i = 0; i < fibonacciMultiplicationTableExpected.Count; i++)
             {
