@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
+using CustomMath;
 
 namespace FibonacciMultiplicationTableConsoleAppTests
 {
@@ -14,7 +15,7 @@ namespace FibonacciMultiplicationTableConsoleAppTests
             double second = 1;
             int sequenceLength = 0;
             List<List<double>> fibonacciMultiplicationTableActual = new List<List<double>>();
-            fibonacciMultiplicationTableActual = GetFibonacciMultiplicationTable(first, second, sequenceLength);
+            fibonacciMultiplicationTableActual = Fibonacci.GetMultiplicationTable(first, second, sequenceLength);
 
             Assert.AreEqual(0, fibonacciMultiplicationTableActual.Count, 0, "Count of Fibonacci multiplication table with 0 elements is more than 0. Actual count " + fibonacciMultiplicationTableActual.Count);
         }
@@ -24,7 +25,7 @@ namespace FibonacciMultiplicationTableConsoleAppTests
         {
             int sequenceLength = 0;
             List<List<double>> fibonacciMultiplicationTableActual = new List<List<double>>();
-            fibonacciMultiplicationTableActual = GetFibonacciMultiplicationTable(sequenceLength);
+            fibonacciMultiplicationTableActual = Fibonacci.GetMultiplicationTable(sequenceLength);
 
             Assert.AreEqual(0, fibonacciMultiplicationTableActual.Count, 0, "Count of Fibonacci multiplication table defaults with 0 elements is more than 0. Actual count " + fibonacciMultiplicationTableActual.Count);
         }
@@ -36,7 +37,7 @@ namespace FibonacciMultiplicationTableConsoleAppTests
             double second = 1;
             int sequenceLength = 5;
             List<List<double>> fibonacciMultiplicationTableActual = new List<List<double>>();
-            fibonacciMultiplicationTableActual = GetFibonacciMultiplicationTable(first, second, sequenceLength);
+            fibonacciMultiplicationTableActual = Fibonacci.GetMultiplicationTable(first, second, sequenceLength);
 
             List<List<double>> fibonacciMultiplicationTableExpected = new List<List<double>>()
             { new List<double>(){1,1,2,3,5},
@@ -63,7 +64,7 @@ namespace FibonacciMultiplicationTableConsoleAppTests
         {
             int sequenceLength = 5;
             List<List<double>> fibonacciMultiplicationTableActual = new List<List<double>>();
-            fibonacciMultiplicationTableActual = GetFibonacciMultiplicationTable(sequenceLength);
+            fibonacciMultiplicationTableActual = Fibonacci.GetMultiplicationTable(sequenceLength);
 
             List<List<double>> fibonacciMultiplicationTableExpected = new List<List<double>>()
             { new List<double>(){0,1,1,2,3},
