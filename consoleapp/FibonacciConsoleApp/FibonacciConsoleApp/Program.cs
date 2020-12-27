@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Numerics;
 using CustomMath;
 
 namespace FibonacciMultiplicationTableConsoleApp
@@ -23,7 +24,7 @@ namespace FibonacciMultiplicationTableConsoleApp
                     }
                     else
                     {
-                        List<List<double>> multiplicationTable = Fibonacci.GetMultiplicationTable(size);
+                        List<List<BigInteger>> multiplicationTable = Fibonacci.GetMultiplicationTable(size);
                         Console.WriteLine("  " + String.Join(" ", multiplicationTable[0].ToArray()));
                         for (int i = 1; i < multiplicationTable.Count; i++)
                         {
