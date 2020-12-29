@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Numerics;
 using System.Web.Http;
 using CustomMath;
+using FibonacciRestApi.Models;
 using FibonacciRestApi.Services;
 
 namespace FibonacciRestApi.Controllers
@@ -24,32 +25,33 @@ namespace FibonacciRestApi.Controllers
         {
             this.fibonacciRepository = customRepository;
         }
-        /*        // GET api/values
-                public List<List<BigInteger>> Get()
-                {
-                    return new List<List<BigInteger>>() { new List<BigInteger>(){1,2,3 }, new List<BigInteger>(){3,2,1} };
-                }*/
 
-        // GET fibonacci/N
-        public List<List<BigInteger>> Get(int size)
+        public virtual HttpResponseMessage Get(int? size)
         {
-            return this.fibonacciRepository.GetFibonacciMultiplicationTableBySize(size);
+            List<List<BigInteger>> multiplicationTable = this.fibonacciRepository.Get(size).MultiplicationTable;
+
+            if (multiplicationTable.Count == 0)
+            {
+                return Request.CreateResponse(HttpStatusCode.NotFound);
+            }
+            return Request.CreateResponse(multiplicationTable);
         }
 
-        // POST api/values
-        public List<List<BigInteger>> Post([FromBody] int value)
+/*        public void Post([FromBody] int value)
         {
-            return this.fibonacciRepository.PostFibonacciSequence(value);
-        }
-
-/*        // PUT api/values/5
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/values/5
-        public void Delete(int id)
-        {
+            this.fibonacciRepository.PostFibonacciSequence(value);
         }*/
+
+        public virtual HttpResponseMessage Post([FromBody] int? size)
+        {
+            FibonacciModel fibonacci = this.fibonacciRepository.Post(size);
+
+            var response = Request.CreateResponse(HttpStatusCode.Created, fibonacci.MultiplicationTable);
+            //string uri = Url.Link("DefaultApi", new { id = product.Id });
+            //response.Headers.Location = new Uri(uri);
+
+            return response;
+        }
+
     }
 }

@@ -7,14 +7,14 @@ namespace CustomMath
 {
     public static class Fibonacci
     {
-        public static List<BigInteger> GetSequence(int sequenceLength)
+        public static List<BigInteger> GetSequence(int? sequenceLength)
         {
             BigInteger firtValue = 0;
             BigInteger secondValue = 1;
             return GetSequence(firtValue, secondValue, sequenceLength);
         }
 
-        public static List<BigInteger> GetSequence(BigInteger firstValue, BigInteger secondValue, int sequenceLength)
+        public static List<BigInteger> GetSequence(BigInteger firstValue, BigInteger secondValue, int? sequenceLength)
         {
             List<BigInteger> sequence = new List<BigInteger>();
             BigInteger tempValue = 0;
@@ -42,14 +42,14 @@ namespace CustomMath
             return sequence;
         }
 
-        public static List<List<BigInteger>> GetMultiplicationTable(int sequenceLength)
+        public static List<List<BigInteger>> GetMultiplicationTable(int? sequenceLength)
         {
             BigInteger firstValue = 0;
             BigInteger secondValue = 1;
             return GetMultiplicationTable(firstValue, secondValue, sequenceLength);
         }
 
-        public static List<List<BigInteger>> GetMultiplicationTable(BigInteger firstValue, BigInteger secondValue, int sequenceLength)
+        public static List<List<BigInteger>> GetMultiplicationTable(BigInteger firstValue, BigInteger secondValue, int? sequenceLength)
         {
             List<List<BigInteger>> multiplicationTable = new List<List<BigInteger>>();
             if(sequenceLength > 0)

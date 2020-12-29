@@ -18,7 +18,13 @@ namespace FibonacciRestApi
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "{controller}/{size}",
-                defaults: new { id = RouteParameter.Optional }
+                defaults: new { size = RouteParameter.Optional }
+            );
+
+            config.Routes.MapHttpRoute(
+            name: "DefaultApi2",
+            routeTemplate: "{controller}",
+            defaults: new { size = RouteParameter.Optional }
             );
 
             config.Formatters.JsonFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("text/html"));

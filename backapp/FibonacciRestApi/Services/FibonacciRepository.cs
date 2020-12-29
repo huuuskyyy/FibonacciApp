@@ -10,14 +10,18 @@ namespace FibonacciRestApi.Services
 {
     public class FibonacciRepository
     {
-        public virtual List<List<BigInteger>> GetFibonacciMultiplicationTableBySize(int size)
+        public virtual FibonacciModel Get(int? size)
         {
-            return Fibonacci.GetMultiplicationTable(size);
+            FibonacciModel result = new FibonacciModel();
+            result.MultiplicationTable = CustomMath.Fibonacci.GetMultiplicationTable(size);
+            return result;
         }
 
-        public virtual List<List<BigInteger>> PostFibonacciSequence(int size)
+        public virtual FibonacciModel Post(int? size)
         {
-            return Fibonacci.GetMultiplicationTable(size);
+            //FibonacciModel result = new FibonacciModel();
+            //return CustomMath.Fibonacci.GetMultiplicationTable(size);
+            return this.Get(size);
         }
     }
 }

@@ -10,50 +10,55 @@ using System.Text;
 using System.Web.Http;
 using CustomMath;
 using FibonacciRestApi.Services;
+using FibonacciRestApi.Models;
+using System.Net;
 
 namespace FibonacciRestApi.Tests.Controllers
+
 {
     [TestClass]
     public class FibonacciControllerTest
     {
 
+        List<List<BigInteger>> fibonacciMultiplicationTableFive = new List<List<BigInteger>>()
+            { new List<BigInteger>(){0,1,1,2,3},
+            new List<BigInteger>(){0,0,0,0,0,0},
+            new List<BigInteger>(){1,0,1,1,2,3},
+            new List<BigInteger>(){1,0,1,1,2,3},
+            new List<BigInteger>(){2,0,2,2,4,6},
+            new List<BigInteger>(){3,0,3,3,6,9} };
+
         [TestMethod]
         public void GetBySizeInvalid()
         {
+            // Arrange
             FibonacciController controller = new FibonacciController(new FibonacciTestRepository());
+            controller.Request = new HttpRequestMessage();
+            controller.Configuration = new HttpConfiguration();
 
-            List<List<BigInteger>> fibonacciMultiplicationTableActual = controller.Get(-5);
+            // Act
+            var response = controller.Get(-5);
 
-            Assert.IsNotNull(fibonacciMultiplicationTableActual);
-            Assert.AreEqual(0, fibonacciMultiplicationTableActual.Count());
-        }
-
-        [TestMethod]
-        public void GetBySizeZero()
-        {
-            FibonacciController controller = new FibonacciController(new FibonacciTestRepository());
-
-            List<List<BigInteger>> fibonacciMultiplicationTableActual = controller.Get(0);
-
-            Assert.IsNotNull(fibonacciMultiplicationTableActual);
-            Assert.AreEqual(0, fibonacciMultiplicationTableActual.Count());
+            // Assert
+            Assert.AreEqual(response.StatusCode, HttpStatusCode.NotFound);
         }
 
         [TestMethod]
         public void GetBySizeFive()
         {
+            // Arrange
             FibonacciController controller = new FibonacciController(new FibonacciTestRepository());
+            controller.Request = new HttpRequestMessage();
+            controller.Configuration = new HttpConfiguration();
+            List<List<BigInteger>> fibonacciMultiplicationTableExpected = fibonacciMultiplicationTableFive;
 
-            List<List<BigInteger>> fibonacciMultiplicationTableExpected = new List<List<BigInteger>>()
-            { new List<BigInteger>(){1,1,2,3,5},
-            new List<BigInteger>(){1,1,1,2,3,5},
-            new List<BigInteger>(){1,1,1,2,3,5},
-            new List<BigInteger>(){2,2,2,4,6,10},
-            new List<BigInteger>(){3,3,3,6,9,15},
-            new List<BigInteger>(){5,5,5,10,15,25}};
+            // Act
+            var response = controller.Get(5);
 
-            List<List<BigInteger>> fibonacciMultiplicationTableActual = controller.Get(5);
+            List<List<BigInteger>> fibonacciMultiplicationTableActual = new List<List<BigInteger>>();
+            Assert.IsTrue(response.TryGetContentValue<List<List<BigInteger>>>(out fibonacciMultiplicationTableActual));
 
+            //Assert
             Assert.IsNotNull(fibonacciMultiplicationTableActual);
             Assert.AreEqual(6, fibonacciMultiplicationTableActual.Count());
 
@@ -70,20 +75,37 @@ namespace FibonacciRestApi.Tests.Controllers
         }
 
         [TestMethod]
+        public void GetBySizeZero()
+        {
+            // Arrange
+            FibonacciController controller = new FibonacciController(new FibonacciTestRepository());
+            controller.Request = new HttpRequestMessage();
+            controller.Configuration = new HttpConfiguration();
+
+            // Act
+            var response = controller.Get(0);
+
+            List<List<BigInteger>> fibonacciMultiplicationTableActual = new List<List<BigInteger>>();
+            Assert.AreEqual(response.StatusCode, HttpStatusCode.NotFound);
+
+        }
+
+        [TestMethod]
         public void PostNonExistingValue()
         {
+            // Arrange
             FibonacciController controller = new FibonacciController(new FibonacciTestRepository());
+            controller.Request = new HttpRequestMessage();
+            controller.Configuration = new HttpConfiguration();
+            List<List<BigInteger>> fibonacciMultiplicationTableExpected = fibonacciMultiplicationTableFive;
 
-            List<List<BigInteger>> fibonacciMultiplicationTableExpected = new List<List<BigInteger>>()
-            { new List<BigInteger>(){1,1,2,3,5},
-            new List<BigInteger>(){1,1,1,2,3,5},
-            new List<BigInteger>(){1,1,1,2,3,5},
-            new List<BigInteger>(){2,2,2,4,6,10},
-            new List<BigInteger>(){3,3,3,6,9,15},
-            new List<BigInteger>(){5,5,5,10,15,25}};
+            // Act
+            var response = controller.Get(5);
 
-            List<List<BigInteger>> fibonacciMultiplicationTableActual = controller.Post(5);
+            List<List<BigInteger>> fibonacciMultiplicationTableActual = new List<List<BigInteger>>();
+            Assert.IsTrue(response.TryGetContentValue<List<List<BigInteger>>>(out fibonacciMultiplicationTableActual));
 
+            //Assert
             Assert.IsNotNull(fibonacciMultiplicationTableActual);
             Assert.AreEqual(6, fibonacciMultiplicationTableActual.Count());
 
@@ -102,19 +124,20 @@ namespace FibonacciRestApi.Tests.Controllers
         [TestMethod]
         public void PostAlreadyExistingValue()
         {
+            // Arrange
             FibonacciController controller = new FibonacciController(new FibonacciTestRepository());
+            controller.Request = new HttpRequestMessage();
+            controller.Configuration = new HttpConfiguration();
+            List<List<BigInteger>> fibonacciMultiplicationTableExpected = fibonacciMultiplicationTableFive;
 
-            List<List<BigInteger>> fibonacciMultiplicationTableExpected = new List<List<BigInteger>>()
-            { new List<BigInteger>(){1,1,2,3,5},
-            new List<BigInteger>(){1,1,1,2,3,5},
-            new List<BigInteger>(){1,1,1,2,3,5},
-            new List<BigInteger>(){2,2,2,4,6,10},
-            new List<BigInteger>(){3,3,3,6,9,15},
-            new List<BigInteger>(){5,5,5,10,15,25}};
+            // Act
+            var response = controller.Get(5);
+            response = controller.Get(5);
 
-            List<List<BigInteger>> fibonacciMultiplicationTableActual = controller.Post(5);
-            fibonacciMultiplicationTableActual = controller.Post(5);
+            List<List<BigInteger>> fibonacciMultiplicationTableActual = new List<List<BigInteger>>();
+            Assert.IsTrue(response.TryGetContentValue<List<List<BigInteger>>>(out fibonacciMultiplicationTableActual));
 
+            //Assert
             Assert.IsNotNull(fibonacciMultiplicationTableActual);
             Assert.AreEqual(6, fibonacciMultiplicationTableActual.Count());
 
@@ -130,28 +153,27 @@ namespace FibonacciRestApi.Tests.Controllers
             }
         }
 
-    }
-
-    public class FibonacciTestRepository: FibonacciRepository
-    {
-        public Dictionary<BigInteger, List<List<BigInteger>>> database;
-        public FibonacciTestRepository()
+    public class FibonacciTestRepository : FibonacciRepository
         {
-            database = new Dictionary<int, List<List<BigInteger>>>;
-    }
-        public override List<List<BigInteger>> GetFibonacciMultiplicationTableBySize(int size)
-        {
-            return Fibonacci.GetMultiplicationTable(size);
-        }
-
-        public override List<List<BigInteger>> PostFibonacciSequence(int size)
-        {
-            List<List<BigInteger>> result = new List<List<BigInteger>>();
-            if (!database.ContainsKey(size))
+            public Dictionary<int, List<List<BigInteger>>> database;
+            public FibonacciTestRepository()
             {
-                database.Add(size, Fibonacci.GetMultiplicationTable(size));
+                database = new Dictionary<int, List<List<BigInteger>>>();
             }
-            return database[size];
+
+
+            public override FibonacciModel Post(int? size)
+            {
+                List<List<BigInteger>> result = new List<List<BigInteger>>();
+                if (!database.ContainsKey((int)size))
+                {
+                    database.Add((int)size, Fibonacci.GetMultiplicationTable(size));
+                }
+
+                FibonacciModel model = new FibonacciModel();
+                model.MultiplicationTable = database[(int)size];
+                return model;
+            }
         }
     }
 }
