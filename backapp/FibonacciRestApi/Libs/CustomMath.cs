@@ -7,17 +7,17 @@ namespace CustomMath
 {
     public static class Fibonacci
     {
-        public static List<BigInteger> GetSequence(int? sequenceLength)
+        public static List<Int64> GetSequence(int? sequenceLength)
         {
-            BigInteger firtValue = 0;
-            BigInteger secondValue = 1;
+            Int64 firtValue = 0;
+            Int64 secondValue = 1;
             return GetSequence(firtValue, secondValue, sequenceLength);
         }
 
-        public static List<BigInteger> GetSequence(BigInteger firstValue, BigInteger secondValue, int? sequenceLength)
+        public static List<Int64> GetSequence(Int64 firstValue, Int64 secondValue, int? sequenceLength)
         {
-            List<BigInteger> sequence = new List<BigInteger>();
-            BigInteger tempValue = 0;
+            List<Int64> sequence = new List<Int64>();
+            Int64 tempValue = 0;
 
             if(sequenceLength > 0)
             {
@@ -42,26 +42,26 @@ namespace CustomMath
             return sequence;
         }
 
-        public static List<List<BigInteger>> GetMultiplicationTable(int? sequenceLength)
+        public static List<List<Int64>> GetMultiplicationTable(int? sequenceLength)
         {
-            BigInteger firstValue = 0;
-            BigInteger secondValue = 1;
+            Int64 firstValue = 0;
+            Int64 secondValue = 1;
             return GetMultiplicationTable(firstValue, secondValue, sequenceLength);
         }
 
-        public static List<List<BigInteger>> GetMultiplicationTable(BigInteger firstValue, BigInteger secondValue, int? sequenceLength)
+        public static List<List<Int64>> GetMultiplicationTable(Int64 firstValue, Int64 secondValue, int? sequenceLength)
         {
-            List<List<BigInteger>> multiplicationTable = new List<List<BigInteger>>();
+            List<List<Int64>> multiplicationTable = new List<List<Int64>>();
             if(sequenceLength > 0)
             {
-                List<BigInteger> fibonacciSequence = GetSequence(firstValue, secondValue, sequenceLength);
+                List<Int64> fibonacciSequence = GetSequence(firstValue, secondValue, sequenceLength);
 
                 multiplicationTable.Add(fibonacciSequence);
 
                 for (int i = 0; i < fibonacciSequence.Count; i++)
                 {
-                    List<BigInteger> tableRow = new List<BigInteger>();
-                    BigInteger baseNumber = fibonacciSequence[i];
+                    List<Int64> tableRow = new List<Int64>();
+                    Int64 baseNumber = fibonacciSequence[i];
                     tableRow.Add(baseNumber);
 
                     for (int j = 0; j < fibonacciSequence.Count; j++)

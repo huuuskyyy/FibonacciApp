@@ -12,6 +12,6 @@ namespace FibonacciRestApi.Models
 
         public int Size { get; set; }
 
-        public List<List<BigInteger>> MultiplicationTable { get; set; }
+        public List<List<Int64>> MultiplicationTable { get; set; }
     }
 }
