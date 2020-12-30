@@ -222,7 +222,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Libs\CustomMath.cs" />
-    <Compile Include="Models\FibonacciModel.cs" />
     <Compile Include="Models\FibonacciModelMongoDB.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\DbService.cs" />

@@ -24,7 +24,7 @@ namespace FibonacciMultiplicationTableConsoleApp
                     }
                     else
                     {
-                        List<List<BigInteger>> multiplicationTable = Fibonacci.GetMultiplicationTable(size);
+                        List<List<Int64>> multiplicationTable = Fibonacci.GetMultiplicationTable(size);
                         Console.WriteLine("  " + String.Join(" ", multiplicationTable[0].ToArray()));
                         for (int i = 1; i < multiplicationTable.Count; i++)
                         {

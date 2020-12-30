@@ -28,8 +28,6 @@ namespace FibonacciRestApi.Services
 
         public virtual FibonacciModelMongoDB Post(int? size)
         {
-            //FibonacciModel result = new FibonacciModel();
-            //return CustomMath.Fibonacci.GetMultiplicationTable(size);
             return this.Get(size);
         }
 
