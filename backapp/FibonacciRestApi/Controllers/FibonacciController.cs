@@ -30,20 +30,42 @@ namespace FibonacciRestApi.Controllers
 
         public virtual HttpResponseMessage Get(int? size)
         {
-            List<List<Int64>> multiplicationTable = this.fibonacciRepository.Get(size).MultiplicationTable;
-
-            if (multiplicationTable.Count == 0)
+            HttpResponseMessage response;
+            if (size == null)
             {
-                return Request.CreateResponse(HttpStatusCode.NotFound);
+                response = Request.CreateResponse(HttpStatusCode.NotFound);
             }
-            return Request.CreateResponse(multiplicationTable);
+            else
+            {
+                List<List<Int64>> multiplicationTable = this.fibonacciRepository.Get(size).MultiplicationTable;
+
+                if (multiplicationTable.Count == 0)
+                {
+                    response = Request.CreateResponse(HttpStatusCode.NotFound);
+                }
+                else
+                {
+                    response = Request.CreateResponse(multiplicationTable);
+                }
+            }
+
+            return response;
         }
 
-        public virtual HttpResponseMessage Post([FromBody] int? size)
+        public virtual HttpResponseMessage Post([FromBody] FibonacciModelMongoDB model)
         {
-            FibonacciModelMongoDB fibonacci = this.fibonacciRepository.Post(size);
+            HttpResponseMessage response;
+            if(model == null)
+            {
+                response = Request.CreateResponse(HttpStatusCode.BadRequest);
+            }
+            else
+            {
+                int size = model.Size;
+                FibonacciModelMongoDB fibonacci = this.fibonacciRepository.Post(size);
 
-            var response = Request.CreateResponse(HttpStatusCode.Created, fibonacci.MultiplicationTable);;
+                response = Request.CreateResponse(HttpStatusCode.Created, fibonacci.MultiplicationTable);
+            }
 
             return response;
         }
