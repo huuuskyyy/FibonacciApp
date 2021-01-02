@@ -161,19 +161,35 @@ namespace FibonacciRestApi.Tests.Controllers
                 database = new Dictionary<int, List<List<Int64>>>();
             }
 
+            public override FibonacciModelMongoDB Get(int size)
+            {
+                FibonacciModelMongoDB result = new FibonacciModelMongoDB();
+                if (!database.ContainsKey(size))
+                {
+                    result.MultiplicationTable = CustomMath.Fibonacci.GetMultiplicationTable(size);
+                    result.Size = size;
+                }
+                else
+                {
+                    result.MultiplicationTable = database[size];
+                }
 
-            public override FibonacciModelMongoDB Post(int? size)
+                return result;
+            }
+
+
+            public override FibonacciModelMongoDB Post(int size)
             {
                 List<List<Int64>> result = new List<List<Int64>>();
 
-                if (!database.ContainsKey((int)size))
+                if (!database.ContainsKey(size))
                 {
-                    database.Add((int)size, Fibonacci.GetMultiplicationTable(size));
+                    database.Add(size, Fibonacci.GetMultiplicationTable(size));
                 }
 
                 FibonacciModelMongoDB model = new FibonacciModelMongoDB();
-                model.MultiplicationTable = database[(int)size];
-                model.Size = (int)size;
+                model.MultiplicationTable = database[size];
+                model.Size = size;
                 return model;
             }
         }

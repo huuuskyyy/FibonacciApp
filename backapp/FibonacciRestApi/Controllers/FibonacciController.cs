@@ -28,26 +28,21 @@ namespace FibonacciRestApi.Controllers
             this.fibonacciRepository = customRepository;
         }
 
-        public virtual HttpResponseMessage Get(int? size)
+        public virtual HttpResponseMessage Get(int size)
         {
             HttpResponseMessage response;
-            if (size == null)
+
+            List<List<Int64>> multiplicationTable = this.fibonacciRepository.Get(size).MultiplicationTable;
+
+            if (multiplicationTable.Count == 0)
             {
                 response = Request.CreateResponse(HttpStatusCode.NotFound);
             }
             else
             {
-                List<List<Int64>> multiplicationTable = this.fibonacciRepository.Get(size).MultiplicationTable;
-
-                if (multiplicationTable.Count == 0)
-                {
-                    response = Request.CreateResponse(HttpStatusCode.NotFound);
-                }
-                else
-                {
-                    response = Request.CreateResponse(multiplicationTable);
-                }
+                response = Request.CreateResponse(multiplicationTable);
             }
+
 
             return response;
         }
@@ -55,16 +50,23 @@ namespace FibonacciRestApi.Controllers
         public virtual HttpResponseMessage Post([FromBody] FibonacciModelMongoDB model)
         {
             HttpResponseMessage response;
-            if(model == null)
+            if (model == null)
             {
                 response = Request.CreateResponse(HttpStatusCode.BadRequest);
             }
             else
             {
                 int size = model.Size;
-                FibonacciModelMongoDB fibonacci = this.fibonacciRepository.Post(size);
+                if (size != null)
+                {
+                    FibonacciModelMongoDB fibonacci = this.fibonacciRepository.Post(size);
 
-                response = Request.CreateResponse(HttpStatusCode.Created, fibonacci.MultiplicationTable);
+                    response = Request.CreateResponse(HttpStatusCode.Created, fibonacci.MultiplicationTable);
+                }
+                else
+                {
+                    response = Request.CreateResponse(HttpStatusCode.BadRequest);
+                }
             }
 
             return response;
