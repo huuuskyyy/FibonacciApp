@@ -1,0 +1,14 @@
+#multiplication-table{
+	border: 1px solid black;
+	margin: 20px;
+}
+
+.multiplication-table-cell{
+		padding: 5px;
+		border: 1px solid black;
+		text-align: center;
+}
+
+.multiplication-table-cell-value{
+	font-weight: bold;
+}

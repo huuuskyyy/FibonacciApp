@@ -1,0 +1,32 @@
+<h1>Fibonacci multiplication table</h1>
+
+<div>
+<form action="/fibonacci">
+  <label for="n">Size</label>
+  <input type="number" id="n" name="n" placeholder="The 'n' parameter" value=<%= size %>>
+  <input type="submit" value="Generate">
+</form>
+</div>
+
+<% if table %>
+	<table id="multiplication-table">
+		<% table.each do |row| %>
+			<tr class="multiplication-table-row">
+				<% row.each do |cell| %>
+					<td class="multiplication-table-cell">
+						<label class="multiplication-table-cell-value"><%= cell %></label>
+					</td>
+				<% end %>
+			</tr>
+		<% end %>
+	</table>
+
+  <% if saved %>
+    <p>Saved!</p>
+  <% else %>
+	<form action="/fibonacci" method="post">
+		<input hidden=true type="text" name="size" value="<%= size %>">
+		<input value="Save" type="submit">
+	</form>
+  <% end %>
+<% end %>
