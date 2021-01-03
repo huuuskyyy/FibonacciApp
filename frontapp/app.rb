@@ -18,9 +18,6 @@ get '/fibonacci' do
 	
 	if response.kind_of? Net::HTTPSuccess 
 		table = JSON.parse(response.body)
-		if table.count > 0
-			table[0].insert(0, nil)
-		end
 	end
   end
 	
@@ -38,7 +35,6 @@ post '/fibonacci' do
 		if response.kind_of? Net::HTTPSuccess 
 			table = JSON.parse(response.body)
 			if table.count > 0
-				table[0].insert(0, nil)
 				saved = true
 			end
 		end

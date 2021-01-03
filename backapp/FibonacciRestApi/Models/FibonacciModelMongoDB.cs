@@ -17,6 +17,6 @@ namespace FibonacciRestApi.Models
         public int Size { get; set; }
 
         [BsonElement("MultiplicationTable")]
-        public List<List<Int64>> MultiplicationTable { get; set; }
+        public List<List<long?>> MultiplicationTable { get; set; }
     }
 }

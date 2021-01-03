@@ -20,13 +20,13 @@ namespace FibonacciRestApi.Tests.Controllers
     public class FibonacciControllerTest
     {
 
-        List<List<Int64>> fibonacciMultiplicationTableFive = new List<List<Int64>>()
-            { new List<Int64>(){0,1,1,2,3},
-            new List<Int64>(){0,0,0,0,0,0},
-            new List<Int64>(){1,0,1,1,2,3},
-            new List<Int64>(){1,0,1,1,2,3},
-            new List<Int64>(){2,0,2,2,4,6},
-            new List<Int64>(){3,0,3,3,6,9} };
+        List<List<long?>> fibonacciMultiplicationTableFive = new List<List<long?>>()
+            { new List<long?>(){null,0,1,1,2,3},
+            new List<long?>(){0,0,0,0,0,0},
+            new List<long?>(){1,0,1,1,2,3},
+            new List<long?>(){1,0,1,1,2,3},
+            new List<long?>(){2,0,2,2,4,6},
+            new List<long?>(){3,0,3,3,6,9} };
 
         [TestMethod]
         public void GetBySizeInvalid()
@@ -50,13 +50,13 @@ namespace FibonacciRestApi.Tests.Controllers
             FibonacciController controller = new FibonacciController(new FibonacciTestRepository());
             controller.Request = new HttpRequestMessage();
             controller.Configuration = new HttpConfiguration();
-            List<List<Int64>> fibonacciMultiplicationTableExpected = fibonacciMultiplicationTableFive;
+            List<List<long?>> fibonacciMultiplicationTableExpected = fibonacciMultiplicationTableFive;
 
             // Act
             var response = controller.Get(5);
 
-            List<List<Int64>> fibonacciMultiplicationTableActual = new List<List<Int64>>();
-            Assert.IsTrue(response.TryGetContentValue<List<List<Int64>>>(out fibonacciMultiplicationTableActual));
+            List<List<long?>> fibonacciMultiplicationTableActual = new List<List<long?>>();
+            Assert.IsTrue(response.TryGetContentValue<List<List<long?>>>(out fibonacciMultiplicationTableActual));
 
             //Assert
             Assert.IsNotNull(fibonacciMultiplicationTableActual);
@@ -64,8 +64,8 @@ namespace FibonacciRestApi.Tests.Controllers
 
             for (int i = 0; i < fibonacciMultiplicationTableExpected.Count; i++)
             {
-                List<Int64> currentExpected = fibonacciMultiplicationTableExpected[i];
-                List<Int64> currentActual = fibonacciMultiplicationTableActual[i];
+                List<long?> currentExpected = fibonacciMultiplicationTableExpected[i];
+                List<long?> currentActual = fibonacciMultiplicationTableActual[i];
 
                 CollectionAssert.AreEqual(currentExpected, currentActual,
                 "Expected result of Fibonacci multiplication table with 5 elements is not correct at row " + i + ". " +
@@ -85,7 +85,7 @@ namespace FibonacciRestApi.Tests.Controllers
             // Act
             var response = controller.Get(0);
 
-            List<List<Int64>> fibonacciMultiplicationTableActual = new List<List<Int64>>();
+            List<List<long?>> fibonacciMultiplicationTableActual = new List<List<long?>>();
             Assert.AreEqual(response.StatusCode, HttpStatusCode.NotFound);
 
         }
@@ -97,13 +97,13 @@ namespace FibonacciRestApi.Tests.Controllers
             FibonacciController controller = new FibonacciController(new FibonacciTestRepository());
             controller.Request = new HttpRequestMessage();
             controller.Configuration = new HttpConfiguration();
-            List<List<Int64>> fibonacciMultiplicationTableExpected = fibonacciMultiplicationTableFive;
+            List<List<long?>> fibonacciMultiplicationTableExpected = fibonacciMultiplicationTableFive;
 
             // Act
             var response = controller.Get(5);
 
-            List<List<Int64>> fibonacciMultiplicationTableActual = new List<List<Int64>>();
-            Assert.IsTrue(response.TryGetContentValue<List<List<Int64>>>(out fibonacciMultiplicationTableActual));
+            List<List<long?>> fibonacciMultiplicationTableActual = new List<List<long?>>();
+            Assert.IsTrue(response.TryGetContentValue<List<List<long?>>>(out fibonacciMultiplicationTableActual));
 
             //Assert
             Assert.IsNotNull(fibonacciMultiplicationTableActual);
@@ -111,8 +111,8 @@ namespace FibonacciRestApi.Tests.Controllers
 
             for (int i = 0; i < fibonacciMultiplicationTableExpected.Count; i++)
             {
-                List<Int64> currentExpected = fibonacciMultiplicationTableExpected[i];
-                List<Int64> currentActual = fibonacciMultiplicationTableActual[i];
+                List<long?> currentExpected = fibonacciMultiplicationTableExpected[i];
+                List<long?> currentActual = fibonacciMultiplicationTableActual[i];
 
                 CollectionAssert.AreEqual(currentExpected, currentActual,
                 "Expected result of POST Fibonacci multiplication table with 5 elements is not correct at row " + i + ". " +
@@ -128,14 +128,14 @@ namespace FibonacciRestApi.Tests.Controllers
             FibonacciController controller = new FibonacciController(new FibonacciTestRepository());
             controller.Request = new HttpRequestMessage();
             controller.Configuration = new HttpConfiguration();
-            List<List<Int64>> fibonacciMultiplicationTableExpected = fibonacciMultiplicationTableFive;
+            List<List<long?>> fibonacciMultiplicationTableExpected = fibonacciMultiplicationTableFive;
 
             // Act
             var response = controller.Get(5);
             response = controller.Get(5);
 
-            List<List<Int64>> fibonacciMultiplicationTableActual = new List<List<Int64>>();
-            Assert.IsTrue(response.TryGetContentValue<List<List<Int64>>>(out fibonacciMultiplicationTableActual));
+            List<List<long?>> fibonacciMultiplicationTableActual = new List<List<long?>>();
+            Assert.IsTrue(response.TryGetContentValue<List<List<long?>>>(out fibonacciMultiplicationTableActual));
 
             //Assert
             Assert.IsNotNull(fibonacciMultiplicationTableActual);
@@ -143,8 +143,8 @@ namespace FibonacciRestApi.Tests.Controllers
 
             for (int i = 0; i < fibonacciMultiplicationTableExpected.Count; i++)
             {
-                List<Int64> currentExpected = fibonacciMultiplicationTableExpected[i];
-                List<Int64> currentActual = fibonacciMultiplicationTableActual[i];
+                List<long?> currentExpected = fibonacciMultiplicationTableExpected[i];
+                List<long?> currentActual = fibonacciMultiplicationTableActual[i];
 
                 CollectionAssert.AreEqual(currentExpected, currentActual,
                 "Expected result of POST Fibonacci multiplication table with 5 elements is not correct at row " + i + ". " +
@@ -155,10 +155,10 @@ namespace FibonacciRestApi.Tests.Controllers
 
     public class FibonacciTestRepository : FibonacciRepository
         {
-            public Dictionary<int, List<List<Int64>>> database;
+            public Dictionary<int, List<List<long?>>> database;
             public FibonacciTestRepository()
             {
-                database = new Dictionary<int, List<List<Int64>>>();
+                database = new Dictionary<int, List<List<long?>>>();
             }
 
             public override FibonacciModelMongoDB Get(int size)
@@ -180,7 +180,7 @@ namespace FibonacciRestApi.Tests.Controllers
 
             public override FibonacciModelMongoDB Post(int size)
             {
-                List<List<Int64>> result = new List<List<Int64>>();
+                List<List<long?>> result = new List<List<long?>>();
 
                 if (!database.ContainsKey(size))
                 {

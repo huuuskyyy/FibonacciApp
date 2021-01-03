@@ -8,8 +8,8 @@ namespace FibonacciRestApi.Services
 {
     public static class MongoDbService
     {
-        private static string MongoDBConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings["MongoDBConnection"].ConnectionString;
-        const string databaseName = "TestDatabase";
+        private static readonly string MongoDBConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings["MongoDBConnection"].ConnectionString;
+        private static readonly string databaseName = MongoUrl.Create(MongoDBConnectionString).DatabaseName;
         private static MongoClient client; 
 
         private static MongoClient GetClient()

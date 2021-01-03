@@ -32,7 +32,7 @@ namespace FibonacciRestApi.Controllers
         {
             HttpResponseMessage response;
 
-            List<List<Int64>> multiplicationTable = this.fibonacciRepository.Get(size).MultiplicationTable;
+            List<List<long?>> multiplicationTable = this.fibonacciRepository.Get(size).MultiplicationTable;
 
             if (multiplicationTable.Count == 0)
             {

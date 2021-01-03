@@ -24,11 +24,25 @@ namespace FibonacciMultiplicationTableConsoleApp
                     }
                     else
                     {
-                        List<List<Int64>> multiplicationTable = Fibonacci.GetMultiplicationTable(size);
-                        Console.WriteLine("  " + String.Join(" ", multiplicationTable[0].ToArray()));
-                        for (int i = 1; i < multiplicationTable.Count; i++)
+                        List<List<long?>> multiplicationTable = Fibonacci.GetMultiplicationTable(size);
+                        for (int i = 0; i < multiplicationTable.Count; i++)
                         {
-                            Console.WriteLine(String.Join(" ", multiplicationTable[i].ToArray()));
+                            List<long?> row = multiplicationTable[i];
+                            string stringRow = "";
+                            for (int j = 0; j < row.Count; j++)
+                            {
+                                string currentValue = "";
+                                if(row[j] == null)
+                                {
+                                    currentValue = " ";
+                                }
+                                else
+                                {
+                                    currentValue = row[j].ToString();
+                                }
+                                stringRow = stringRow + currentValue + " ";
+                            }
+                            Console.WriteLine(stringRow);
                         }
                     }
                    
